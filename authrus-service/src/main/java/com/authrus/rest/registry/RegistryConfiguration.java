@@ -48,7 +48,8 @@ public class RegistryConfiguration {
          @Value("${server.environment}") String environment,
          @Value("${server.host:}") String host,         
          @Value("${server.directory}") File path,
-         @Value("${server.port}") int port)
+         @Value("${server.port}") int port,
+         @Value("${server.register:true}") boolean register)
    {
       this.executor = new ScheduledThreadPoolExecutor(1);
       this.resolver = new HostNameResolver(host);
@@ -82,9 +83,13 @@ public class RegistryConfiguration {
                     .manage(manage)
                     .host(host)
                     .build();
-              
-              executor.scheduleAtFixedRate(() -> registry.addNode(name, node), 1, 10, TimeUnit.SECONDS);
-              log.info("Registering service {} at {}", name, location);
+
+              if(register) {
+                 executor.scheduleAtFixedRate(() -> registry.addNode(name, node), 1, 10, TimeUnit.SECONDS);
+                 log.info("Registering service {} at {}", name, location);
+              } else {
+                 log.info("Not registering service {} at {}", name, location);
+              }
            }
         } catch(Exception e) {
            log.error("Could not register service", e);
