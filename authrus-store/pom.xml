@@ -6,7 +6,7 @@
   <parent>
     <artifactId>authrus-service-parent</artifactId>
     <groupId>com.authrus</groupId>
-    <version>sandbox-SNAPSHOT</version>
+    <version>2.0.1-SNAPSHOT</version>
   </parent>
 
 
@@ -14,20 +14,15 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
-    <common.version>sandbox-SNAPSHOT</common.version>
-    <server.version>sandbox-SNAPSHOT</server.version>
+    <common.version>2.0.1-SNAPSHOT</common.version>
+    <server.version>2.0.1-SNAPSHOT</server.version>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>com.authrus</groupId>
-      <artifactId>authrus-common</artifactId>
-      <version>sandbox-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>com.authrus</groupId>
       <artifactId>authrus-service</artifactId>
-      <version>sandbox-SNAPSHOT</version>
+      <version>2.0.1-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains.xodus</groupId>
