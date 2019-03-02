@@ -39,6 +39,7 @@ public class RegistryConfiguration {
    private final String name;
    private final File path;
    private final int port;
+   private final boolean register;
    
    public RegistryConfiguration(
          ZooKeeperClient client, 
@@ -56,6 +57,7 @@ public class RegistryConfiguration {
       this.mapper = new ObjectMapper();
       this.environment = environment;
       this.description = description;
+      this.register = register;
       this.server = server;
       this.client = client;
       this.name = name;
