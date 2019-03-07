@@ -1,4 +1,4 @@
-![Authrus API Gateway](https://github.com/authrus/gateway/raw/master/authrus-gateway/src/main/resources/static/logo.png)
+![Authrus API Gateway](https://github.com/authrus/service/raw/master/gateway/authrus-gateway/src/main/resources/static/logo.png)
 
 Authrus API Gateway is a high performance event driven proxy for HTTP and WebSockets written in Java.
 Configuration of the API Gateway can be done declaratively with a JSON based configuration file. 
