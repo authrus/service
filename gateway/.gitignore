@@ -1,0 +1,12 @@
+/target/
+certificate
+log
+data
+smtp.properties
+*.iml
+*.pfx
+*.tar.gz
+.idea
+.settings
+.classpath
+.project

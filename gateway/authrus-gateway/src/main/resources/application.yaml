@@ -1,0 +1,30 @@
+server:
+  environment: local
+  name: gateway
+  host: localhost
+  description: Reverse Proxy    
+  directory: C:/Work/development/authrus/gateway/authrus-gateway
+  port: 7979
+  packages: com.authrus.gateway   
+      
+gateway:   
+  resources: ${server.directory} 
+  creds: ${gateway.resources}/certificate  
+  plan: ${server.directory}/src/main/resources/plan.json
+  trace:
+    file: ${server.directory}/src/main/resources/trace.json
+    enabled: true
+
+jmx:
+   login: admin
+   password: password12
+   port: 9989
+   
+zookeeper:   
+   enabled: true
+   hosts: localhost:2181     
+
+logging:
+  level:
+    root: INFO        
+

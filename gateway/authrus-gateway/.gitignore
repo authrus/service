@@ -1,0 +1,9 @@
+certificate
+/target/
+log
+build
+gateway.zip
+gateway.tar.gz
+.settings
+.classpath
+.project
