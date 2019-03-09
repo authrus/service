@@ -1,0 +1,85 @@
+server:
+  host: localhost
+  description: Process Agent
+  name: agent  
+  environment: local
+  directory: C:/Work/development/authrus/gateway/authrus-agent
+  port: 8899
+  packages: com.authrus.agent,com.authrus.jmx,com.authrus.rest,com.authrus.gateway.status,com.authrus.gateway.health  
+   
+jmx:
+   login: admin
+   password: password12
+   port: 9955   
+ 
+group:
+   directory: ${server.directory}    
+   host: ${server.host}    
+   port: 9765
+   name: agent    
+   environment: local
+   definitions:
+      -
+       directory: C:\\Work\\development\\authrus\\gateway\\authrus-agent
+       address: http://${server.host}:${server.port}/
+       manage: http://${server.host}:${jmx.port}/       
+       description: Process Agent
+       name: ${server.name}
+       host: ${server.host}
+       health: /v1/ping
+      -
+       directory: C:\\Work\\development\\authrus\\gateway\\authrus-agent
+       address: http://niall-pc:8999/
+       manage: http://niall-pc:18999/       
+       description: Process Agent       
+       name: ${server.name}
+       host: niall-pc
+       health: /v1/ping       
+      -
+       directory: C:\\Work\\development\\authrus\\gateway\\authrus-directory
+       address: http://${server.host}:8385/
+       manage: http://${server.host}:5779/         
+       description: Directory Service       
+       name: directory
+       host: ${server.host}      
+       health: /v1/ping         
+      -
+       directory: C:\\Work\\development\\authrus\\gateway\\authrus-identity
+       address: http://${server.host}:7072/
+       manage: http://${server.host}:5577/ 
+       description: Identity Service       
+       name: identity
+       host: ${server.host}     
+       health: /v1/ping 
+      -
+       directory: C:\\Work\\development\\authrus\\gateway\\authrus-gateway
+       address: http://${server.host}:7979/
+       manage: http://${server.host}:9989/        
+       description: Reverse Proxy       
+       name: gateway
+       host: ${server.host}     
+       health: /v1/ping
+      -
+       directory: C:\\Work\\development\\authrus\\gateway\\authrus-site
+       address: http://${server.host}:4321/
+       manage: http://${server.host}:9911/        
+       description: Site Portal       
+       name: site
+       host: ${server.host}     
+       health: /v1/ping                            
+
+terminal:
+   host: localhost   
+   
+zookeeper:   
+   hosts: localhost:${zookeeper.clientPort}
+   dataDir: ${server.directory}/data/${server.host}
+   clientPort: 2181
+   maxClientCnxns: 0   
+   initLimit: 5
+   syncLimit: 2
+   server.1: localhost:2888:3888   
+     
+     
+   
+

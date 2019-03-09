@@ -1,0 +1,26 @@
+server:
+  host: niall-pc
+  name: agent
+  environment: local
+  port: 8999  
+  
+jmx:
+  port: 9956
+  
+group:
+   directory: ${server.directory}        
+   port: 9766
+   name: agent    
+   environment: local
+   definitions:
+      -
+       directory: C:\\Work\\development\\authrus\\gateway\\authrus-agent
+       address: http://${server.host}:${server.port}/
+       name: ${server.name}
+       host: ${server.host}
+       health: /v1/ping                  
+   
+zookeeper:   
+   hosts: localhost:${zookeeper.clientPort}
+   clientPort: 2182
+   server.1: localhost:2889:3889       
