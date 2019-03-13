@@ -18,4 +18,9 @@ public enum TraceCategory {
    };
 
    public abstract SearchRecorder getRecorder(TraceContext context, String name);
+
+   public static TraceCategory resolveCategory(String token) {
+      String name = token.toUpperCase();
+      return Enum.valueOf(TraceCategory.class, name);
+   }
 }

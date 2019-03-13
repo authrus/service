@@ -1,5 +1,7 @@
 package com.authrus.gateway.resource.trace;
 
+import static com.authrus.gateway.resource.trace.TraceCategory.resolveCategory;
+
 import javax.inject.Inject;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -32,10 +34,12 @@ public class TraceResource {
    @Produces(MediaType.APPLICATION_JSON)
    @ApiOperation(value = "Find all records")
    public List<TraceMatch> findAll(
-           @PathParam("category") TraceCategory category,
+           @PathParam("category") String category,
            @PathParam("name") String name)
    {
-      return service.findAll(category, name);
+      return service.findAll(
+              resolveCategory(category),
+              name);
    }
 
    @GET
@@ -43,10 +47,12 @@ public class TraceResource {
    @Produces(MediaType.APPLICATION_JSON)
    @ApiOperation(value = "Find active records")
    public List<TraceMatch> findActive(
-           @PathParam("category") TraceCategory category,
+           @PathParam("category") String category,
            @PathParam("name") String name)
    {
-      return service.findActive(category, name);
+      return service.findActive(
+              resolveCategory(category),
+              name);
    }
 
    @GET
@@ -54,11 +60,14 @@ public class TraceResource {
    @Produces(MediaType.APPLICATION_JSON)
    @ApiOperation(value = "Find all records within the specified time")
    public List<TraceMatch> findAll(
-           @PathParam("category") TraceCategory category,
+           @PathParam("category") String category,
            @PathParam("name") String name,
            @PathParam("seconds") long seconds)
    {
-      return service.findAll(category, name, seconds);
+      return service.findAll(
+              resolveCategory(category),
+              name,
+              seconds);
    }
 
    @GET
@@ -66,11 +75,14 @@ public class TraceResource {
    @Produces(MediaType.APPLICATION_JSON)
    @ApiOperation(value = "Find active records within the specified time")
    public List<TraceMatch> findActive(
-           @PathParam("category") TraceCategory category,
+           @PathParam("category") String category,
            @PathParam("name") String name,
            @PathParam("seconds") long seconds)
    {
-      return service.findActive(category, name, seconds);
+      return service.findActive(
+              resolveCategory(category),
+              name,
+              seconds);
    }
 
    @GET
@@ -78,11 +90,14 @@ public class TraceResource {
    @Produces(MediaType.APPLICATION_JSON)
    @ApiOperation(value = "Find all records with the specified id")
    public List<TraceMatch> findAllById(
-           @PathParam("category") TraceCategory category,
+           @PathParam("category") String category,
            @PathParam("name") String name,
            @PathParam("id") String id)
    {
-      return service.findAllById(category, name, id);
+      return service.findAllById(
+              resolveCategory(category),
+              name,
+              id);
    }
 
    @GET
@@ -90,11 +105,14 @@ public class TraceResource {
    @Produces(MediaType.APPLICATION_JSON)
    @ApiOperation(value = "Find active records with the specified id")
    public List<TraceMatch> findActiveById(
-           @PathParam("category") TraceCategory category,
+           @PathParam("category") String category,
            @PathParam("name") String name,
            @PathParam("id") String id)
    {
-      return service.findActiveById(category, name, id);
+      return service.findActiveById(
+              resolveCategory(category),
+              name,
+              id);
    }
 
    @GET
@@ -102,11 +120,14 @@ public class TraceResource {
    @Produces(MediaType.APPLICATION_JSON)
    @ApiOperation(value = "Find all records matching the specified pattern")
    public List<TraceMatch> findAllByValue(
-           @PathParam("category") TraceCategory category,
+           @PathParam("category") String category,
            @PathParam("name") String name,
            @PathParam("pattern") String pattern)
    {
-      return service.findAllByValue(category, name, pattern);
+      return service.findAllByValue(
+              resolveCategory(category),
+              name,
+              pattern);
    }
 
    @GET
@@ -114,11 +135,14 @@ public class TraceResource {
    @Produces(MediaType.APPLICATION_JSON)
    @ApiOperation(value = "Find all records matching the specified pattern")
    public List<TraceMatch> findActiveByValue(
-           @PathParam("category") TraceCategory category,
+           @PathParam("category") String category,
            @PathParam("name") String name,
            @PathParam("pattern") String pattern)
    {
-      return service.findActiveByValue(category, name, pattern);
+      return service.findActiveByValue(
+              resolveCategory(category),
+              name,
+              pattern);
    }
 
    @GET
@@ -126,12 +150,16 @@ public class TraceResource {
    @Produces(MediaType.APPLICATION_JSON)
    @ApiOperation(value = "Find all records matching the specified pattern")
    public List<TraceMatch> findAllByValue(
-           @PathParam("category") TraceCategory category,
+           @PathParam("category") String category,
            @PathParam("name") String name,
            @PathParam("pattern") String pattern,
            @PathParam("seconds") long seconds)
    {
-      return service.findAllByValue(category, name, pattern, seconds);
+      return service.findAllByValue(
+              resolveCategory(category),
+              name,
+              pattern,
+              seconds);
    }
 
    @GET
@@ -139,12 +167,16 @@ public class TraceResource {
    @Produces(MediaType.APPLICATION_JSON)
    @ApiOperation(value = "Find active records matching the specified pattern")
    public List<TraceMatch> findActiveByValue(
-           @PathParam("category") TraceCategory category,
+           @PathParam("category") String category,
            @PathParam("name") String name,
            @PathParam("pattern") String pattern,
            @PathParam("seconds") long seconds)
    {
-      return service.findActiveByValue(category, name, pattern, seconds);
+      return service.findActiveByValue(
+              resolveCategory(category),
+              name,
+              pattern,
+              seconds);
    }
 
    @GET
@@ -152,11 +184,14 @@ public class TraceResource {
    @Produces(MediaType.APPLICATION_JSON)
    @ApiOperation(value = "Find all records matching the specified pattern")
    public List<TraceMatch> findAllByEvent(
-           @PathParam("category") TraceCategory category,
+           @PathParam("category") String category,
            @PathParam("name") String name,
            @PathParam("pattern") String pattern)
    {
-      return service.findAllByEvent(category, name, pattern);
+      return service.findAllByEvent(
+              resolveCategory(category),
+              name,
+              pattern);
    }
 
    @GET
@@ -164,11 +199,14 @@ public class TraceResource {
    @Produces(MediaType.APPLICATION_JSON)
    @ApiOperation(value = "Find all records matching the specified pattern")
    public List<TraceMatch> findActiveByEvent(
-           @PathParam("category") TraceCategory category,
+           @PathParam("category") String category,
            @PathParam("name") String name,
            @PathParam("pattern") String pattern)
    {
-      return service.findActiveByEvent(category, name, pattern);
+      return service.findActiveByEvent(
+              resolveCategory(category),
+              name,
+              pattern);
    }
 
    @GET
@@ -176,12 +214,16 @@ public class TraceResource {
    @Produces(MediaType.APPLICATION_JSON)
    @ApiOperation(value = "Find all records matching the specified pattern")
    public List<TraceMatch> findAllByEvent(
-           @PathParam("category") TraceCategory category,
+           @PathParam("category") String category,
            @PathParam("name") String name,
            @PathParam("pattern") String pattern,
            @PathParam("seconds") long seconds)
    {
-      return service.findAllByEvent(category, name, pattern, seconds);
+      return service.findAllByEvent(
+              resolveCategory(category),
+              name,
+              pattern,
+              seconds);
    }
 
    @GET
@@ -189,12 +231,16 @@ public class TraceResource {
    @Produces(MediaType.APPLICATION_JSON)
    @ApiOperation(value = "Find all records matching the specified pattern")
    public List<TraceMatch> findActiveByEvent(
-           @PathParam("category") TraceCategory category,
+           @PathParam("category") String category,
            @PathParam("name") String name,
            @PathParam("pattern") String pattern,
            @PathParam("seconds") long seconds)
    {
-      return service.findActiveByEvent(category, name, pattern, seconds);
+      return service.findActiveByEvent(
+              resolveCategory(category),
+              name,
+              pattern,
+              seconds);
    }
 
    @GET
@@ -202,11 +248,14 @@ public class TraceResource {
    @Produces(MediaType.APPLICATION_JSON)
    @ApiOperation(value = "Find all records matching the specified pattern")
    public List<TraceMatch> findAllByAddress(
-           @PathParam("category") TraceCategory category,
+           @PathParam("category") String category,
            @PathParam("name") String name,
            @PathParam("pattern") String pattern)
    {
-      return service.findAllByAddress(category, name, pattern);
+      return service.findAllByAddress(
+              resolveCategory(category),
+              name,
+              pattern);
    }
 
    @GET
@@ -214,11 +263,14 @@ public class TraceResource {
    @Produces(MediaType.APPLICATION_JSON)
    @ApiOperation(value = "Find all records matching the specified pattern")
    public List<TraceMatch> findActiveByAddress(
-           @PathParam("category") TraceCategory category,
+           @PathParam("category") String category,
            @PathParam("name") String name,
            @PathParam("pattern") String pattern)
    {
-      return service.findActiveByAddress(category, name, pattern);
+      return service.findActiveByAddress(
+              resolveCategory(category),
+              name,
+              pattern);
    }
 
    @GET
@@ -226,12 +278,16 @@ public class TraceResource {
    @Produces(MediaType.APPLICATION_JSON)
    @ApiOperation(value = "Find all records matching the specified pattern")
    public List<TraceMatch> findAllByAddress(
-           @PathParam("category") TraceCategory category,
+           @PathParam("category") String category,
            @PathParam("name") String name,
            @PathParam("pattern") String pattern,
            @PathParam("seconds") long seconds)
    {
-      return service.findAllByAddress(category, name, pattern, seconds);
+      return service.findAllByAddress(
+              resolveCategory(category),
+              name,
+              pattern,
+              seconds);
    }
 
    @GET
@@ -239,22 +295,28 @@ public class TraceResource {
    @Produces(MediaType.APPLICATION_JSON)
    @ApiOperation(value = "Find all records matching the specified pattern")
    public List<TraceMatch> findActiveByAddress(
-           @PathParam("category") TraceCategory category,
+           @PathParam("category") String category,
            @PathParam("name") String name,
            @PathParam("pattern") String pattern,
            @PathParam("seconds") long seconds)
    {
-      return service.findActiveByAddress(category, name, pattern, seconds);
+      return service.findActiveByAddress(
+              resolveCategory(category),
+              name,
+              pattern,
+              seconds);
    }
 
    @DELETE
    @Path("/all/{category}/{name}")
    @ApiOperation(value = "Delete all records")
    public void deleteAll(
-           @PathParam("category") TraceCategory category,
+           @PathParam("category") String category,
            @PathParam("name") String name)
    {
-      service.clear(category, name);
+      service.clear(
+              resolveCategory(category),
+              name);
    }
 }
 
