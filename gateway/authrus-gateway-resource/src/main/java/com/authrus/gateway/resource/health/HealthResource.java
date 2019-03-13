@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 @Path(value = HealthResource.RESOURCE_PATH)
@@ -21,7 +22,7 @@ public class HealthResource {
    private final HealthService service;
    
    @Inject
-   public HealthResource(HealthService service) {
+   public HealthResource(@Context HealthService service) {
       this.service = service;
    }
    

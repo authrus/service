@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 @Path(value = StatusResource.RESOURCE_PATH)
@@ -22,7 +23,7 @@ public class StatusResource {
    private final StatusService service;
    
    @Inject
-   public StatusResource(StatusService service) {
+   public StatusResource(@Context StatusService service) {
       this.service = service;
    }
    
