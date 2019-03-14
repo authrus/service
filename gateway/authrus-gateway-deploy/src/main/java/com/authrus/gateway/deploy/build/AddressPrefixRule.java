@@ -23,8 +23,10 @@ public class AddressPrefixRule implements AccessRule {
       for(String token : tokens) {
          AddressPrefix prefix = builder.create(token);
 
-         if(prefix.match(address)) {
-            return true;
+         if(prefix != null) {
+            if (prefix.match(address)) {
+               return true;
+            }
          }
       }
       return false;

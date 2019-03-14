@@ -1,12 +1,15 @@
 package com.authrus.gateway.deploy.build;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import com.authrus.common.collections.Cache;
 import com.authrus.common.collections.LeastRecentlyUsedCache;
 
 public class AddressPrefixBuilder {
 
-   private static final String IP4_CIDR_PREFIX = "\\d+\\.\\d+\\.\\d+\\.\\d+\\/\\d+";
-   private static final String IP6_CIDR_PREFIX = "[a-fA-F0-9]+:[a-fA-F0-9]+:[a-fA-F0-9]+:[a-fA-F0-9]+:[a-fA-F0-9]+:[a-fA-F0-9]+:[a-fA-F0-9]+:[a-fA-F0-9]+";
+   private static final String IP4_CIDR_PREFIX = "(\\.\\d+\\.\\d+\\.\\d+)\\/(\\d+)";
+   private static final String IP6_CIDR_PREFIX = "([a-fA-F0-9]*:[a-fA-F0-9]*:[a-fA-F0-9]*:[a-fA-F0-9]*:[a-fA-F0-9]*:[a-fA-F0-9]*:[a-fA-F0-9]*:[a-fA-F0-9]*)\\/(\\d+)";
 
    private final Cache<String, AddressPrefix> cache;
 
@@ -25,26 +28,36 @@ public class AddressPrefixBuilder {
    }
 
    private AddressPrefix parse(String token) {
+      AddressPrefix prefix = parse(token, IP4_CIDR_PREFIX, "\\.", false);
+
+      if(prefix == null) {
+         return parse(token, IP6_CIDR_PREFIX, ":", true);
+      }
+      return null;
+   }
+
+   private AddressPrefix parse(String token, String expression, String delimeter, boolean decode) {
       if(token != null) {
-         if(token.matches(IP4_CIDR_PREFIX)) {
-            String[] parts = token.split("\\.");
+         Pattern pattern = Pattern.compile(expression);
+         Matcher matcher = pattern.matcher(token);
+
+         if(matcher.matches()) {
+            String text = matcher.group(1); // the I.P address prefix
+            String size = matcher.group(2); // the number of bits in the prefix
+            String[] parts = text.split(delimeter);
             int[] prefix = new int[parts.length];
+            int count = Integer.parseInt(size);
 
             for(int i = 0; i < parts.length; i++) {
-               prefix[i] = Integer.parseInt(parts[i]);
+               if(decode) {
+                  prefix[i] = Integer.parseInt(parts[i]);
+               } else {
+                  prefix[i] = Integer.decode("0x" + parts[i]);
+               }
             }
-            return new AddressPrefix(prefix);
-         }
-         if(token.matches(IP6_CIDR_PREFIX)) {
-            String[] parts = token.split(":");
-            int[] prefix = new int[parts.length];
-
-            for(int i = 0; i < parts.length; i++) {
-               prefix[i] = Integer.decode("0x" + parts[i]);
-            }
-            return new AddressPrefix(prefix);
+            return new AddressPrefix(prefix, count);
          }
       }
-      return new AddressPrefix(new int[]{0});
+      return null;
    }
 }

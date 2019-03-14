@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 public class AddressPrefix {
 
    private final int[] prefix;
+   private final int count;
 
    public boolean match(InetSocketAddress address) {
       InetAddress source = address.getAddress();
