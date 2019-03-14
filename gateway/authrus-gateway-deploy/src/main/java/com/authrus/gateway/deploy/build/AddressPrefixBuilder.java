@@ -45,7 +45,7 @@ public class AddressPrefixBuilder {
             String text = matcher.group(1); // the I.P address prefix
             String size = matcher.group(2); // the number of bits in the prefix
             String[] parts = text.split(delimeter);
-            int[] prefix = new int[parts.length];
+            int[] prefix = new int[parts.length]; // consider using a BitSet....
             int count = Integer.parseInt(size);
 
             for(int i = 0; i < parts.length; i++) {
