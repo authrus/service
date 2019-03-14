@@ -28,24 +28,23 @@ public class AddressPrefixBuilder {
       if(token != null) {
          if(token.matches(IP4_CIDR_PREFIX)) {
             String[] parts = token.split("\\.");
-            byte[] prefix = new byte[parts.length];
+            int[] prefix = new int[parts.length];
 
             for(int i = 0; i < parts.length; i++) {
-               prefix[i] = Byte.parseByte(parts[i]);
+               prefix[i] = Integer.parseInt(parts[i]);
             }
             return new AddressPrefix(prefix);
          }
          if(token.matches(IP6_CIDR_PREFIX)) {
             String[] parts = token.split(":");
-            byte[] prefix = new byte[parts.length];
+            int[] prefix = new int[parts.length];
 
             for(int i = 0; i < parts.length; i++) {
-               prefix[i] = Byte.parseByte(parts[i]);
+               prefix[i] = Integer.decode("0x" + parts[i]);
             }
             return new AddressPrefix(prefix);
-
          }
       }
-      return new AddressPrefix(new byte[]{});
+      return new AddressPrefix(new int[]{0});
    }
 }

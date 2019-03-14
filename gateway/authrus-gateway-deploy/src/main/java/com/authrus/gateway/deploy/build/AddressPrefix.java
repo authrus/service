@@ -2,14 +2,13 @@ package com.authrus.gateway.deploy.build;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
-import java.net.SocketAddress;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class AddressPrefix {
 
-   private final byte[] prefix;
+   private final int[] prefix;
 
    public boolean match(InetSocketAddress address) {
       InetAddress source = address.getAddress();
@@ -17,7 +16,9 @@ public class AddressPrefix {
 
       if(parts.length >= prefix.length) {
          for(int i = 0; i < prefix.length; i++) {
-            if(parts[i] != prefix[i]) {
+            int part = parts[i] & 0xff;
+
+            if(part != prefix[i]) {
                return false;
             }
          }
